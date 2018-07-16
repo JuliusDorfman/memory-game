@@ -6,6 +6,18 @@
   width: 80%;
 }
 
+.card-container {
+  margin: 5%;
+}
+
 .single-card {
   width: 100px;
+}
+
+.card-overlay {
+  display: inline-block;
+  position: absolute;
+  width: 100px;
+  height: 120px;
+  background: rgba(150, 150, 150, .5);
 }

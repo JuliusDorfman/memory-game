@@ -8,9 +8,14 @@ export default class Gamecard extends Component {
       numberOfCards: 12,
       cardValue: [1, 2, 3, 4, 5, 6],
       cardImage: ["betta-fish.jpg", "chihuahua.jpg", "german-shepherd.jpg", "parakeet.png", "shibe.jpg", "sphynx.jpg"],
-      gameCards: []
+      gameCards: [],
+      heldCardValues: [],
+      displayNone: "none",
+      displayInline: "inline-block"
     };
+    this.handleClick = this.handleClick.bind(this);
   }
+
 
   generateCards() {
     let cardList = [];
@@ -25,9 +30,48 @@ export default class Gamecard extends Component {
         cardList.push(myCard)
       }
     }
+    this.shuffleCards(cardList)
+  }
 
-    this.setState({ gameCards: cardList }, () => {
+  /**
+ * Here is a JavaScript implementation of the Durstenfeld shuffle, a computer-optimized version of Fisher-Yates:
+ * Randomize array element order in-place.
+ * Using Durstenfeld shuffle algorithm.
+ */
+
+  shuffleCards(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    this.setState({ gameCards: array }, () => {
+      console.log(this.state.gameCards)
     })
+  }
+
+  handleClick(e) {
+    let currentCard = this.state.heldCardValues;
+    let cardValue = e.target.getAttribute('value');
+
+    if (this.state.heldCardValues.length < 2) {
+      this.setState({ heldCardValues: currentCard.concat(cardValue) }, () => {
+        if (this.state.heldCardValues.length === 2) {
+          if (this.state.heldCardValues[0] === this.state.heldCardValues[1]) {
+            console.log(this.state.heldCardValues)
+            console.log('match')
+            this.setState({ heldCardValues: [] }, () => {
+            })
+          } else {
+            console.log(this.state.heldCardValues)
+            console.log('no match')
+            this.setState({ heldCardValues: [] }, () => {
+            })
+          }
+        }
+      })
+    }
 
   }
 
@@ -40,7 +84,21 @@ export default class Gamecard extends Component {
       <div className="gamecard-component">
         <div className="game-cards">
           {this.state.gameCards.map((gameCard, index) => {
-            return (<div className="card-container" key={gameCard.img + index + 1} value={gameCard.value}>{index + 1}<img className="single-card" src={`../../assets/images/${gameCard.img}`} alt={gameCard.img} title={gameCard.img} /></div>)
+            return (
+              <div className="card-container"
+                key={gameCard.img + index + 1}>
+                <div className="card-overlay"
+                  onClick={this.handleClick}
+                  value={gameCard.value}
+                />
+                <img className="single-card"
+                  src={`../../assets/images/${gameCard.img}`}
+                  onClick={this.handleClick}
+                  value={gameCard.value}
+                  alt={gameCard.img}
+                  title={gameCard.img} />
+              </div>
+            )
           })}
         </div>
       </div>
