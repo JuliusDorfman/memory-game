@@ -1,0 +1,11 @@
+.game-cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.single-card {
+  width: 100px;
+}
