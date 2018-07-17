@@ -10,8 +10,7 @@ export default class Gamecard extends Component {
       cardImage: ["betta-fish.jpg", "chihuahua.jpg", "german-shepherd.jpg", "parakeet.png", "shibe.jpg", "sphynx.jpg"],
       gameCards: [],
       heldCardValues: [],
-      displayNone: "none",
-      displayInline: "inline-block"
+      display: true
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -55,6 +54,9 @@ export default class Gamecard extends Component {
     let currentCard = this.state.heldCardValues;
     let cardValue = e.target.getAttribute('value');
 
+
+    e.target.style.display = "none";
+
     if (this.state.heldCardValues.length < 2) {
       this.setState({ heldCardValues: currentCard.concat(cardValue) }, () => {
         if (this.state.heldCardValues.length === 2) {
@@ -67,6 +69,10 @@ export default class Gamecard extends Component {
             console.log(this.state.heldCardValues)
             console.log('no match')
             this.setState({ heldCardValues: [] }, () => {
+              let el = document.getElementsByClassName('card-overlay');
+              for (let i = 0; i < el.length; i++) {
+                el[i].style.display = "inline-block"
+              }
             })
           }
         }
@@ -93,7 +99,6 @@ export default class Gamecard extends Component {
                 />
                 <img className="single-card"
                   src={`../../assets/images/${gameCard.img}`}
-                  onClick={this.handleClick}
                   value={gameCard.value}
                   alt={gameCard.img}
                   title={gameCard.img} />
