@@ -13,7 +13,7 @@ export default class Gameboard extends Component {
 
   render() {
     return (
-      <div>
+      <div className="gameboard-container">
         <Gamecard />
       </div>
     )

@@ -1,16 +1,21 @@
-.game-cards {
-  display: flex;
-  flex-wrap: wrap;
+.game-cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 50px auto;
+}
+
+.gamecard-component {
   margin: auto;
-  justify-content: space-around;
   width: 80%;
 }
 
-.card-container {
-  margin: 5%;
+.single-card-container {
+  height: 120px;
+  width: 100px; 
+  margin: auto;
 }
 
-.single-card {
+.card-img {
   width: 100px;
 }
 

@@ -8,6 +8,8 @@ export default class Homepage extends Component {
         <header>
           <h1>Memory-Game</h1>
           <h3>Match the cards in the least amount of clicks!</h3>
+          <p>If you guess incorrectly, all of your cards are reset.</p>
+          <p>Hardcore</p>
         </header>
         <div className="gameboard-label">
           <h2>Animal Shuffle!</h2>

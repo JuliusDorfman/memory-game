@@ -10,9 +10,12 @@ export default class Gamecard extends Component {
       cardImage: ["betta-fish.jpg", "chihuahua.jpg", "german-shepherd.jpg", "parakeet.png", "shibe.jpg", "sphynx.jpg"],
       gameCards: [],
       heldCardValues: [],
+      clickCounter: 0,
       display: true
     };
     this.handleClick = this.handleClick.bind(this);
+    this.resetGame = this.resetGame.bind(this);
+    this.clickTracker = this.clickTracker.bind(this);
   }
 
 
@@ -54,7 +57,6 @@ export default class Gamecard extends Component {
     let currentCard = this.state.heldCardValues;
     let cardValue = e.target.getAttribute('value');
 
-
     e.target.style.display = "none";
 
     if (this.state.heldCardValues.length < 2) {
@@ -78,7 +80,16 @@ export default class Gamecard extends Component {
         }
       })
     }
+  }
 
+  clickTracker() {
+    this.setState({ clickCounter: this.state.clickCounter + 1 })
+  }
+
+  resetGame(e) {
+    this.setState({ clickCounter: 0 })
+    this.generateCards()
+    console.log("Hello")
   }
 
   componentWillMount() {
@@ -88,16 +99,27 @@ export default class Gamecard extends Component {
   render() {
     return (
       <div className="gamecard-component">
-        <div className="game-cards">
+        <p>Click Counter: {this.state.clickCounter}</p>
+        {
+          this.state.clickCounter > 0
+            ?
+            <button onClick={this.resetGame}>
+              Reset Game + Counter
+            </button>
+            :
+            <span />
+        }
+        <div className="game-cards-container">
           {this.state.gameCards.map((gameCard, index) => {
             return (
-              <div className="card-container"
+              <div className="single-card-container"
+                onClick={this.clickTracker}
                 key={gameCard.img + index + 1}>
                 <div className="card-overlay"
                   onClick={this.handleClick}
                   value={gameCard.value}
                 />
-                <img className="single-card"
+                <img className="card-img"
                   src={`../../assets/images/${gameCard.img}`}
                   value={gameCard.value}
                   alt={gameCard.img}
