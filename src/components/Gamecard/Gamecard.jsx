@@ -88,6 +88,7 @@ export default class Gamecard extends Component {
 
   resetGame(e) {
     this.setState({ clickCounter: 0 })
+    this.setState({ heldCardValues: [] })
     this.generateCards()
     console.log("Hello")
   }

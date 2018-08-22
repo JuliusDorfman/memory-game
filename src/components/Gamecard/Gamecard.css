@@ -12,7 +12,7 @@
 .single-card-container {
   height: 120px;
   width: 100px; 
-  margin: auto;
+  margin: 12px auto;
 }
 
 .card-img {
